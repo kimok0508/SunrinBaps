@@ -7,48 +7,61 @@
 //
 
 import UIKit
+import Alamofire
 
-class MainListViewController: UIViewController, UITableViewDataSource{
+class MainListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+    let requestUrl = "https://schoool.herokuapp.com/school/B100000658/meals"
     
+    let schoolSelectButtonItem = UIBarButtonItem(
+        title : "학교 선택",
+        style : .plain,
+        target : nil,
+        action : #selector(shcoolSelectBarButtonItemDidSelect)
+    )
     let tableView = UITableView()
-    
     var baps : [Bap] = []
     
     func loadBaps(){
-        let dummyDictionary : [[String : Any]] = [
-            [
-                "date" : "2016-12-15",
-                "lunch" : ["콩나물국밥", "시금치", "김치"],
-                "dinner" : ["치킨", "피자", "햄버거"]
-            ],
-            [
-                "date" : "2016-12-15",
-                "lunch" : ["콩나물국밥", "시금치", "김치"],
-                "dinner" : ["치킨", "피자", "햄버거"]
-            ],
-            [
-                "date" : "2016-12-15",
-                "lunch" : ["콩나물국밥", "시금치", "김치"],
-                "dinner" : ["치킨", "피자", "햄버거"]
-            ]
-        ]
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        self.baps = dummyDictionary.flatMap{
-            return Bap(dictionary: $0)
+        Alamofire.request(requestUrl).responseJSON{ response in
+            guard
+                let datas = response.result.value as? [String : [[String : Any]]],
+                let datax = datas["data"]
+            else{ return }
+            
+            self.baps = datax.flatMap{
+                return Bap(dictionary: $0)
+            }
+            
+            self.tableView.reloadData()
         }
         
-        tableView.reloadData()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier : "bapCell")
+        self.schoolSelectButtonItem.target = self
+        self.navigationItem.rightBarButtonItem = self.schoolSelectButtonItem
+        
+        self.tableView.register(BapCell.self, forCellReuseIdentifier : "bapCell")
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.frame = self.view.bounds
         self.view.addSubview(self.tableView)
         
         loadBaps()
+    }
+    
+    func shcoolSelectBarButtonItemDidSelect(){
+        print("hello")
+        let schoolSearchViewController = SchoolSearchViewController()
+        let navigationController = UINavigationController(
+            rootViewController : schoolSearchViewController
+        )
+        self.present(navigationController, animated : true, completion : nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,16 +80,37 @@ class MainListViewController: UIViewController, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "bapCell",
             for : indexPath
-        )
+        ) as! BapCell
         
         let bap = self.baps[indexPath.section]
         
         if indexPath.row == 0{
-            cell.textLabel?.text = "[점심] " + bap.lunch.joined(separator : ", ")
+            cell.titleLabel.text = "점심"
+            cell.contentLabel.text = bap.lunch.joined(separator : ", ")
         } else {
-            cell.textLabel?.text = "[저녁] " + bap.dinner.joined(separator: ", ")
+            cell.titleLabel.text = "저녁"
+            cell.contentLabel.text = bap.dinner.joined(separator : ", ")
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let bap = self.baps[indexPath.section]
+        var title : String
+        var content : String
+        if indexPath.row == 0{
+            title = "점심"
+            content = bap.lunch.joined(separator : ", ")
+        } else {
+            title = "저녁"
+            content = bap.dinner.joined(separator : ", ")
+        }
+        
+        return BapCell.height(
+            width: tableView.frame.size.width,
+            title: title,
+            content: content
+        )
     }
 }
 

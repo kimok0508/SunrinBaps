@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43E31AF14AA897E182E7B77C /* Pods_SunrinBaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E46F4789253EA303C7B15 /* Pods_SunrinBaps.framework */; };
+		521642B21E13ECF300041E85 /* SchoolSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521642B11E13ECF300041E85 /* SchoolSearchViewController.swift */; };
 		528A06481E11248A00469257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528A06471E11248A00469257 /* AppDelegate.swift */; };
 		528A064A1E11248A00469257 /* MainListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528A06491E11248A00469257 /* MainListViewController.swift */; };
 		528A064F1E11248A00469257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528A064E1E11248A00469257 /* Assets.xcassets */; };
@@ -16,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		521642B11E13ECF300041E85 /* SchoolSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolSearchViewController.swift; sourceTree = "<group>"; };
 		528A06441E11248A00469257 /* SunrinBaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunrinBaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		528A06471E11248A00469257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		528A06491E11248A00469257 /* MainListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,9 @@
 		528A06531E11248A00469257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528A06591E112F3300469257 /* Bap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bap.swift; sourceTree = "<group>"; };
 		52CE1BEF1E11470600EE6B36 /* BapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BapCell.swift; sourceTree = "<group>"; };
+		B36E46F4789253EA303C7B15 /* Pods_SunrinBaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SunrinBaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE4EF0EBA5BF3C426B5A425D /* Pods-SunrinBaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SunrinBaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SunrinBaps/Pods-SunrinBaps.debug.xcconfig"; sourceTree = "<group>"; };
+		D4F9228E5F255981C762CD91 /* Pods-SunrinBaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SunrinBaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-SunrinBaps/Pods-SunrinBaps.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43E31AF14AA897E182E7B77C /* Pods_SunrinBaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E79531045BDAA3B320DF912 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B36E46F4789253EA303C7B15 /* Pods_SunrinBaps.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		38217B22F702C1DC5C79B74C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BE4EF0EBA5BF3C426B5A425D /* Pods-SunrinBaps.debug.xcconfig */,
+				D4F9228E5F255981C762CD91 /* Pods-SunrinBaps.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		528A063B1E11248A00469257 = {
 			isa = PBXGroup;
 			children = (
 				528A06461E11248A00469257 /* SunrinBaps */,
 				528A06451E11248A00469257 /* Products */,
+				38217B22F702C1DC5C79B74C /* Pods */,
+				0E79531045BDAA3B320DF912 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +89,7 @@
 				528A06531E11248A00469257 /* Info.plist */,
 				528A06591E112F3300469257 /* Bap.swift */,
 				52CE1BEF1E11470600EE6B36 /* BapCell.swift */,
+				521642B11E13ECF300041E85 /* SchoolSearchViewController.swift */,
 			);
 			path = SunrinBaps;
 			sourceTree = "<group>";
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 528A06561E11248A00469257 /* Build configuration list for PBXNativeTarget "SunrinBaps" */;
 			buildPhases = (
+				0F8D059640B0622BFCA1F9ED /* [CP] Check Pods Manifest.lock */,
 				528A06401E11248A00469257 /* Sources */,
 				528A06411E11248A00469257 /* Frameworks */,
 				528A06421E11248A00469257 /* Resources */,
+				61B499EE7CDDFB0909766C21 /* [CP] Embed Pods Frameworks */,
+				D6C2D4A55B2F82790D710A6B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -134,12 +164,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0F8D059640B0622BFCA1F9ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		61B499EE7CDDFB0909766C21 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SunrinBaps/Pods-SunrinBaps-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6C2D4A55B2F82790D710A6B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SunrinBaps/Pods-SunrinBaps-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		528A06401E11248A00469257 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				528A064A1E11248A00469257 /* MainListViewController.swift in Sources */,
+				521642B21E13ECF300041E85 /* SchoolSearchViewController.swift in Sources */,
 				528A065A1E112F3300469257 /* Bap.swift in Sources */,
 				528A06481E11248A00469257 /* AppDelegate.swift in Sources */,
 				52CE1BF01E11470600EE6B36 /* BapCell.swift in Sources */,
@@ -255,6 +334,7 @@
 		};
 		528A06571E11248A00469257 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE4EF0EBA5BF3C426B5A425D /* Pods-SunrinBaps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V7TY326AB2;
@@ -268,6 +348,7 @@
 		};
 		528A06581E11248A00469257 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4F9228E5F255981C762CD91 /* Pods-SunrinBaps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V7TY326AB2;
