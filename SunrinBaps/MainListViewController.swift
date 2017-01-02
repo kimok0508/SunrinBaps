@@ -53,20 +53,21 @@ class MainListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func saveSchool(){
-        let saveDict = self.school?.toDictionary()
+        guard let school = self.school? else { return }
         
-        UserDefaults.standard.set(saveDict, forKey : "school")
+        UserDefaults.standard.set(school.toDictionary(), forKey : "school")
         UserDefaults.standard.synchronize()
     }
     
     func loadSchool(){
         guard
-            let savedDict = UserDefaults.standard.array(forKey : "school") as? [String : Any?],
+            let savedDict = UserDefaults.standard.object(forKey : "school") as? [String : Any],
             let code = savedDict["code"] as? String,
             let name = savedDict["name"] as? String,
             let type = savedDict["type"] as? String
         else{ return }
         
+        print(name)
         self.school = School(code : code, name : name, type : type)
     }
     
@@ -165,9 +166,9 @@ class MainListViewController: UIViewController, UITableViewDataSource, UITableVi
     func shcoolSelectBarButtonItemDidSelect(){
         let schoolSearchViewController = SchoolSearchViewController()
         schoolSearchViewController.didSelectSchool = {
-            self.saveSchool()
             self.school = $0
             self.title = $0.name
+            self.saveSchool()
             self.loadBaps()
         }
         let navigationController = UINavigationController(

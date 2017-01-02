@@ -103,7 +103,7 @@ class SchoolSearchViewController : UIViewController, UISearchBarDelegate, UITabl
             for : indexPath
         )
         
-        var school = self.schools[indexPath.row]
+        let school = self.schools[indexPath.row]
         cell.textLabel?.text = school.name
         
         switch school.type {
