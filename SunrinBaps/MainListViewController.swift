@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class MainListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-    let requestUrl = "https://schoool.herokuapp.com/school/B100000658/meals"
+    let requestBaseUrl = "https://schoool.herokuapp.com"
     
     let schoolSelectButtonItem = UIBarButtonItem(
         title : "학교 선택",
@@ -18,13 +18,74 @@ class MainListViewController: UIViewController, UITableViewDataSource, UITableVi
         target : nil,
         action : #selector(shcoolSelectBarButtonItemDidSelect)
     )
+    
+    let toolBar = UIToolbar()
     let tableView = UITableView()
+    var school : School?
     var baps : [Bap] = []
     
+    let prevMonthButtonItem = UIBarButtonItem(
+        title : "이전달",
+        style : .plain,
+        target : nil,
+        action : nil
+    )
+    
+    let nextMonthButtonItem = UIBarButtonItem(
+        title : "다음달",
+        style : .plain,
+        target : nil,
+        action : nil
+    )
+    
+    var date : (year : Int, month : Int)
+    
+    override init(nibName nibNameOrNil : String?, bundle nibBundleOrNil : Bundle?){
+        let today = Date()
+        let year = Calendar.current.component(.year, from : today)
+        let month = Calendar.current.component(.month, from : today)
+        self.date = (year : year, month : month)
+        super.init(nibName : nibNameOrNil, bundle : nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func saveSchool(){
+        let saveDict = self.school?.toDictionary()
+        
+        UserDefaults.standard.set(saveDict, forKey : "school")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func loadSchool(){
+        guard
+            let savedDict = UserDefaults.standard.array(forKey : "school") as? [String : Any?],
+            let code = savedDict["code"] as? String,
+            let name = savedDict["name"] as? String,
+            let type = savedDict["type"] as? String
+        else{ return }
+        
+        self.school = School(code : code, name : name, type : type)
+    }
+    
     func loadBaps(){
+        guard let school = self.school else{
+            shcoolSelectBarButtonItemDidSelect()
+            return
+        }
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Alamofire.request(requestUrl).responseJSON{ response in
+        let path = "/school/\(school.code)/meals"
+        let requestUrl = requestBaseUrl + path
+        let parameters : [String : Any] = [
+            "year" : self.date.year,
+            "month" : self.date.month
+        ]
+        
+        Alamofire.request(requestUrl, parameters : parameters).responseJSON{ response in
             guard
                 let datas = response.result.value as? [String : [[String : Any]]],
                 let datax = datas["data"]
@@ -42,22 +103,73 @@ class MainListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.schoolSelectButtonItem.target = self
         self.navigationItem.rightBarButtonItem = self.schoolSelectButtonItem
+        
+        self.prevMonthButtonItem.target = self
+        self.prevMonthButtonItem.action = #selector(prevMonthButtonItemDidSelect)
+        self.nextMonthButtonItem.target = self
+        self.nextMonthButtonItem.action = #selector(nextMonthButtonItemDidSelect)
         
         self.tableView.register(BapCell.self, forCellReuseIdentifier : "bapCell")
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.contentInset.bottom = 44
+        self.tableView.scrollIndicatorInsets.bottom = 44
+        self.toolBar.items = [
+            self.prevMonthButtonItem,
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            self.nextMonthButtonItem
+        ]
         self.tableView.frame = self.view.bounds
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.toolBar)
         
+        loadSchool()
+        loadBaps()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tableView.frame = self.view.bounds
+        self.toolBar.frame = CGRect(
+            x : 0,
+            y : self.view.frame.size.height - 44,
+            width : self.view.frame.size.width,
+            height : 44
+        )
+    }
+    
+    func prevMonthButtonItemDidSelect(){
+        var newYear = self.date.year
+        var newMonth = self.date.month - 1
+        if newMonth <= 0{
+            newMonth = 12
+            newYear -= 1
+        }
+        self.date = (year : newYear, month : newMonth)
+        loadBaps()
+    }
+    
+    func nextMonthButtonItemDidSelect(){
+        var newYear = self.date.year
+        var newMonth = self.date.month + 1
+        if newMonth >= 13{
+            newMonth = 1
+            newYear += 1
+        }
+        self.date = (year : newYear, month : newMonth)
         loadBaps()
     }
     
     func shcoolSelectBarButtonItemDidSelect(){
-        print("hello")
         let schoolSearchViewController = SchoolSearchViewController()
+        schoolSearchViewController.didSelectSchool = {
+            self.saveSchool()
+            self.school = $0
+            self.title = $0.name
+            self.loadBaps()
+        }
         let navigationController = UINavigationController(
             rootViewController : schoolSearchViewController
         )

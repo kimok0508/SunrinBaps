@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		43E31AF14AA897E182E7B77C /* Pods_SunrinBaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E46F4789253EA303C7B15 /* Pods_SunrinBaps.framework */; };
+		5210E93F1E1A2AF3008E0AE1 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5210E93E1E1A2AF3008E0AE1 /* School.swift */; };
 		521642B21E13ECF300041E85 /* SchoolSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521642B11E13ECF300041E85 /* SchoolSearchViewController.swift */; };
 		528A06481E11248A00469257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528A06471E11248A00469257 /* AppDelegate.swift */; };
 		528A064A1E11248A00469257 /* MainListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528A06491E11248A00469257 /* MainListViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5210E93E1E1A2AF3008E0AE1 /* School.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		521642B11E13ECF300041E85 /* SchoolSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolSearchViewController.swift; sourceTree = "<group>"; };
 		528A06441E11248A00469257 /* SunrinBaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunrinBaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		528A06471E11248A00469257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				528A06591E112F3300469257 /* Bap.swift */,
 				52CE1BEF1E11470600EE6B36 /* BapCell.swift */,
 				521642B11E13ECF300041E85 /* SchoolSearchViewController.swift */,
+				5210E93E1E1A2AF3008E0AE1 /* School.swift */,
 			);
 			path = SunrinBaps;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				528A064A1E11248A00469257 /* MainListViewController.swift in Sources */,
+				5210E93F1E1A2AF3008E0AE1 /* School.swift in Sources */,
 				521642B21E13ECF300041E85 /* SchoolSearchViewController.swift in Sources */,
 				528A065A1E112F3300469257 /* Bap.swift in Sources */,
 				528A06481E11248A00469257 /* AppDelegate.swift in Sources */,
